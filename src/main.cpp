@@ -3,18 +3,18 @@
 #include "expression.h"
 #include "act.h"
 
-//Declaration of functions
-//void checkButton();
+// Declaration of functions
+// void checkButton();
 void clickTick();
 
-//Button
+// Button
 #define BUTTON A1
 #define DEBOUNCE 140
 
 byte buttonStatusCurrent = LOW;
 byte buttonStatusPrevious = LOW;
-//int checkNum = 0;
-//unsigned long lastCheck = 0;
+// int checkNum = 0;
+// unsigned long lastCheck = 0;
 
 // FastLED 初始化
 #define NUM_LEDS 64
@@ -25,14 +25,14 @@ byte buttonStatusPrevious = LOW;
 void setup()
 {
   // put your setup code here, to run once:
-  pinMode(BUTTON,INPUT_PULLUP);
+  pinMode(BUTTON, INPUT_PULLUP);
   Serial.begin(9600);
 
   LEDS.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
   FastLED.setBrightness(max_bright);
 
-  pinMode(BUTTON, INPUT);//When pressed, turn to high
-  
+  pinMode(BUTTON, INPUT); // When pressed, turn to high
+
   selfCheck();
 
   /*colorfulHeart();
@@ -80,61 +80,66 @@ void loop()
   buttonStatusPrevious = buttonStatusCurrent;
 }
 
-
-void clickTick(){
+void clickTick()
+{
   static byte pressCount = 0;
   static unsigned long clickMaxPeriod = 1000;
   static unsigned long startTime = 0;
-  static bool isStart =false;
+  static bool isStart = false;
 
-  if ((buttonStatusCurrent == LOW) && (buttonStatusPrevious == HIGH)){
-    if (isStart == false){
+  if ((buttonStatusCurrent == LOW) && (buttonStatusPrevious == HIGH))
+  {
+    if (isStart == false)
+    {
       pressCount = 1;
       displayWhite(one);
       FastLED.show();
       delay(100);
       isStart = true;
       startTime = millis();
-    }else{
+    }
+    else
+    {
       pressCount++;
       displayNumber(pressCount);
       startTime = millis();
-      
+
       FastLED.show();
-      delay(100); 
+      delay(100);
     }
     delay(DEBOUNCE);
   }
 
-  if (((millis() - startTime) > clickMaxPeriod) && isStart){
+  if (((millis() - startTime) > clickMaxPeriod) && isStart)
+  {
     isStart = false;
 
-    switch (pressCount){
-      case 1:
+    switch (pressCount)
+    {
+    case 1:
       colorfulHeart();
       FastLED.clear();
       break;
 
-      case 2:
+    case 2:
       watchLeftAndRight();
       FastLED.clear();
       break;
 
-      case 3:
+    case 3:
       rainbowLight();
       FastLED.clear();
       break;
 
-      case 4:
+    case 4:
       colorfulScreen();
       FastLED.clear();
       break;
 
-      case 5:
+    case 5:
       displayWhite(sigama);
       FastLED.show();
       break;
-       
     }
   }
 }
@@ -152,24 +157,24 @@ void clickTick(){
       displayWhite(two);
     }
   }
-  
+
   if (!buttonStatus){//判断按钮是否按下
     delay(250);
     if (!buttonStatus){//此时确定按钮被按下
       if (millis() - lastCheck > 1000){//如果距离上次按下未超时,判断是否为第一次按下？？？
-      
+
       Serial.println(checkNum);
 
       checkNum = 1;
 
-      
+
       lastCheck = millis();
       }else{
         lastCheck = millis();
         checkNum++;
-        
+
         Serial.println(checkNum);
-        
+
         displayNumber(checkNum);
       }
     }
