@@ -4,7 +4,6 @@
 #include "act.h"
 
 // Declaration of functions
-// void checkButton();
 void clickTick();
 
 // Button
@@ -13,8 +12,6 @@ void clickTick();
 
 byte buttonStatusCurrent = LOW;
 byte buttonStatusPrevious = LOW;
-// int checkNum = 0;
-// unsigned long lastCheck = 0;
 
 // FastLED 初始化
 #define NUM_LEDS 64
@@ -35,40 +32,6 @@ void setup()
 
   selfCheck();
 
-  /*colorfulHeart();
-
-  selfCheck();
-
-  rainbowLight();
-
-  watchLeftAndRight();
-
-  displayWhite(heart);
-  FastLED.show();
-  delay(1000);
-  FastLED.clear();
-
-  displayWhite(sigama);
-  FastLED.show();
-  delay(1000);
-  FastLED.clear();
-
-  displayWhite(shock);
-  FastLED.show();
-  delay(1000);
-  FastLED.clear();
-
-  colorfulScreen();
-  FastLED.show();
-  delay(1000);
-  FastLED.clear();
-
-  displayWhite(shy);
-  FastLED.show();
-  delay(1000);
-  FastLED.clear();
-  Serial.println("shy finished");
-*/
   delay(50);
 }
 
